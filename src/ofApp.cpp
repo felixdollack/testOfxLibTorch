@@ -17,6 +17,8 @@ void ofApp::setup(){
     this->model = new Net();
     this->model->to(device);
     this->modelIsTrained = false;
+
+    testResult = "";
 }
 
 //--------------------------------------------------------------
@@ -26,7 +28,19 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    ofClear(0);
+    ofDrawBitmapString("Press '1' to train on the MNIST data set", 50,  50);
+    ofDrawBitmapString("Press 't' to test the trained model",      50, 100);
+    ofDrawBitmapString("Press 's' to export the trained model",    50, 150);
+    ofDrawBitmapString("Press 'l' to load a trained MNIST model",  50, 200);
+    string s;
+    if (this->modelIsTrained) {
+        s = "";
+    } else {
+        s = "un";
+    }
+    ofDrawBitmapString("MNIST model is "+s+"trained.",             50, 250);
+    ofDrawBitmapString(testResult,                                 50, 350);
 }
 
 //--------------------------------------------------------------
@@ -197,4 +211,6 @@ void ofApp::testMNIST() {
     test_loss /= test_dataset_size;
     std::printf("\nTest set: Average loss: %.4f | Accuracy: %.3f\n",
                 test_loss, static_cast<double>(correct) / test_dataset_size);
+
+    testResult = "Test set: Average loss: " + ofToString(test_loss) + " | Accuracy: " + ofToString(static_cast<double>(correct) / test_dataset_size);
 }

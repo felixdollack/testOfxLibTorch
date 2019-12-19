@@ -73,4 +73,6 @@ class ofApp : public ofBaseApp{
     bool modelIsTrained;
     void trainMNIST();
     void testMNIST();
+
+    string testResult;
 };
